@@ -16,7 +16,7 @@ search_tool = SerperDevTool(n=10)
 # Agent: Senior Research Analyst
 senior_research_analyst = Agent(
     role="Senior Research Analyst",
-    goal="Research, analyze, and synthesize data on {topic}how the medical industry is using generative AI.",
+    goal="Research, analyze, and synthesize data on how the medical industry is using generative AI.",
     backstory=(
         "With over 15 years of experience in the healthcare and life sciences sectors, "
         "the Senior Research Analyst has led numerous strategic initiatives at the intersection "
@@ -28,11 +28,10 @@ senior_research_analyst = Agent(
         "healthcare—from accelerating diagnoses to personalizing treatment plans and streamlining research operations."
     ),
     tools=[search_tool],
-    allow_delegation=False
+    allow_delegation=False,
     llm=llm,
     verbose=True
 )
-
 
 # Agent: Content Writer
 content_writer = Agent(
@@ -49,7 +48,7 @@ content_writer = Agent(
     verbose=True
 )
 
-
+# Task 1: Research
 research_task = Task(
     description=(
         f"Conduct in-depth research on the topic: '{topic}'. Your goal is to gather, analyze, and synthesize up-to-date information "
@@ -69,8 +68,7 @@ research_task = Task(
     )
 )
 
-
-#task 2 contant writing
+# Task 2: Blog Writing (Chained to Task 1)
 content_writing_task = Task(
     description=(
         "Using the research summary provided by the Senior Research Analyst, write an engaging and informative blog post "
@@ -84,10 +82,9 @@ content_writing_task = Task(
         "Aim for 700–900 words. Make the content blog-ready with proper structure, subheadings, and readability."
     ),
     agent=content_writer,
-    expected_output="A polished, blog-ready article titled 'How Generative AI Is Revolutionizing the Medical Industry'."
+    expected_output="A polished, blog-ready article titled 'How Generative AI Is Revolutionizing the Medical Industry'.",
+    input_tasks=[research_task]  # Ensures sequencing
 )
-
-
 
 # Create the Crew
 crew = Crew(
@@ -99,4 +96,3 @@ crew = Crew(
 # Run the Crew
 result = crew.kickoff(inputs={"topic": topic})
 print(result)
-
