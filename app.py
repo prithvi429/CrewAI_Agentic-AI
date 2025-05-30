@@ -50,10 +50,53 @@ content_writer = Agent(
 )
 
 
-# Task: Research the topic
 research_task = Task(
-    description=f"Conduct thorough research and provide insights on: {topic}.",
+    description=(
+        f"Conduct in-depth research on the topic: '{topic}'. Your goal is to gather, analyze, and synthesize up-to-date information "
+        "on how generative AI is currently being used in the medical industry. Focus on the following key areas:\n\n"
+        "1. Applications: Identify specific use cases of generative AI in medical settings (e.g., medical imaging, drug discovery, "
+        "clinical decision support, personalized treatment, medical documentation, patient communication).\n"
+        "2. Benefits: Highlight the advantages and impact generative AI brings to medical practitioners, patients, and healthcare systems.\n"
+        "3. Challenges: Discuss current limitations, risks, or ethical concerns (e.g., data privacy, bias, regulatory compliance).\n"
+        "4. Key Players: Mention notable companies, research institutions, or startups leading innovation in this space.\n"
+        "5. Future Trends: Summarize expert opinions or emerging trends that may shape the future of generative AI in healthcare.\n\n"
+        "Use reliable, up-to-date sources from academic literature, industry reports, and news articles. Provide citations where applicable."
+    ),
     agent=senior_research_analyst,
-    expected_output="A detailed summary of how generative AI is being applied in the medical industry, including examples and trends."
+    expected_output=(
+        "A comprehensive and well-structured report (500-800 words) summarizing the state of generative AI in the medical industry. "
+        "The report should be informative enough to serve as the foundation for a blog post or whitepaper."
+    )
 )
+
+
+#task 2 contant writing
+content_writing_task = Task(
+    description=(
+        "Using the research summary provided by the Senior Research Analyst, write an engaging and informative blog post "
+        "on how generative AI is transforming the medical industry. Your writing should:\n\n"
+        "1. Begin with a strong introduction that hooks the reader and briefly introduces the topic.\n"
+        "2. Explain key applications of generative AI in healthcare in a clear, non-technical way.\n"
+        "3. Highlight real-world examples, benefits, and innovation leaders where possible.\n"
+        "4. Address challenges and ethical considerations in a balanced tone.\n"
+        "5. End with a forward-looking conclusion that reflects on the future potential of generative AI in medicine.\n\n"
+        "The tone should be professional yet accessible to a broad audience, including healthcare professionals, tech enthusiasts, and policy makers. "
+        "Aim for 700–900 words. Make the content blog-ready with proper structure, subheadings, and readability."
+    ),
+    agent=content_writer,
+    expected_output="A polished, blog-ready article titled 'How Generative AI Is Revolutionizing the Medical Industry'."
+)
+
+
+
+# Create the Crew
+crew = Crew(
+    agents=[senior_research_analyst, content_writer],
+    tasks=[research_task, content_writing_task],
+    verbose=True
+)
+
+# Run the Crew
+result = crew.kickoff(inputs={"topic": topic})
+print(result)
 
