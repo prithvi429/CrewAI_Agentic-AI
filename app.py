@@ -1,9 +1,12 @@
 from crewai import Agent, Task, Crew, LLM
-from crewai.tools import SerperDevTool
 from dotenv import load_dotenv
+from crewai_tools import tools
+from crewai_tools.tools.serper import SerperTool
+import os
 
 load_dotenv()
-
+api_key = os.getenv("SERPER_API_KEY")
+search_tool = SerperTool(api_key=api_key)
 # Topic to research
 topic = 'medical industry using generative AI'
 
