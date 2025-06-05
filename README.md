@@ -21,6 +21,8 @@ This project uses CrewAI agents to research and generate blog content about how 
   - crewai
   - crewai-tools
 
+> **Note:** If your LLM setup (e.g., OpenAI) requires an API key, add `OPENAI_API_KEY=your_openai_api_key_here` to your `.env` file as well.
+
 ## Setup
 
 1. **Clone the repository:**
@@ -42,6 +44,7 @@ This project uses CrewAI agents to research and generate blog content about how 
    - Create a `.env` file in the project root:
      ```
      SERPER_API_KEY=your_serper_api_key_here
+     OPENAI_API_KEY=your_openai_api_key_here  # If required by your LLM
      ```
 
 ## Usage
@@ -61,6 +64,15 @@ You can also run `app.py` for a command-line version:
 ```
 python app.py
 ```
+
+## Troubleshooting
+
+- **Missing API Key:**  
+  Ensure your `.env` file contains valid `SERPER_API_KEY` (and `OPENAI_API_KEY` if needed).
+- **Module Not Found:**  
+  Double-check that all required packages are installed.
+- **Streamlit Not Launching:**  
+  Make sure you are running the command in the correct directory.
 
 ## File Structure
 
