@@ -44,7 +44,7 @@ This project uses CrewAI agents to research and generate blog content about how 
    - Create a `.env` file in the project root:
      ```
      SERPER_API_KEY=your_serper_api_key_here
-     OPENAI_API_KEY=your_openai_api_key_here  # If required by your LLM
+     OPENAI_API_KEY=your_openai_api_key_here  # If required by your LLM.
      ```
 
 ## Usage
